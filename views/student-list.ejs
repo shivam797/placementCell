@@ -1,0 +1,24 @@
+<h1> This page shows student list
+</h1>
+
+
+<br><br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Batch</th>
+        <th>Email</th>
+        <th>contact</th>
+        <th>college</th>
+    </tr>
+    <% for(stud of students) {%>
+        <tr>
+            <td><%=stud.name%></td>
+            <td><%=stud.batch%></td>
+            <td><%=stud.email%></td>
+            <td><%=stud.contact%></td>
+            <td><%=stud.college%></td>
+        </tr>
+    <%}%>
+   
+</table>
