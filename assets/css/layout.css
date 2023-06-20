@@ -2,12 +2,72 @@
     margin: 0px;
     background-color: red;
     color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+header{
+    height: 4rem;
+    width: 100%;
+    background-color: black;
+    border: 3px solid aliceblue;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    /* background-color: black; */
+}
+.flexrow{
+    display: flex;
+    width: 30rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 table{
     border: 2px solid wheat;
+    margin: 10px;
 }
 
 th,td{
     border: 2px solid white;
+}
+footer{
+    position: absolute;
+    bottom: 0px;
+    height: 4rem;
+    width: 100%;
+    background-color: black;
+}
+.data{
+    display: flex;
+    flex-direction: row;
+    background-color: orange;
+    z-index: 1;
+    height: 31rem;
+    width: 100%;
+}
+.company-list{
+    flex-grow: 2;
+    background-color: brown;
+    border: 2px solid black;
+    box-sizing: content-box;
+    padding: 10px;
+}
+a{
+    text-decoration: none;
+    color: green;
+    margin: 3px;
+}
+a:hover{
+    color: skyblue;
+}
+.course{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    border: 2px solid gainsboro;
 }

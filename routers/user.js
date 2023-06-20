@@ -13,6 +13,7 @@ const homeController = require('../controllers/home_controller');
 
 router.get('/sign-in', homeController.signIn);
 router.get('/sign-up', homeController.signUp);
+router.get('/sign-out', homeController.signOut);
 
 router.get('/student-page',passport.checkAuthentication, homeController.studentDetails);
 

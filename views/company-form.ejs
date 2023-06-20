@@ -1,0 +1,21 @@
+<form action="/student/create-company-data" method="POST">
+    <label for="companyName">Company Name :</label>
+    <input type="text" name="companyName" id="">
+    <br>
+    <label for="interviewDate">Interview Date</label>
+    <input type="date" name="interviewDate" id="">
+    <br>
+    <label for="placementStatus">Status :</label>
+    <input list="batch" name="placementStatus" id="">
+     <datalist id = "batch">
+        <option value="on Hold"></option>
+        <option value="selected"></option>
+        <option value="not selected"></option>
+        <option value="pending"></option>
+        <option value="not attempted"></option>
+     </datalist>
+     <br>
+     <input type="hidden" name="studentId" value="<%=stud.id%>">
+     <br>
+     <input type="submit" name="" value="submit" id="">
+</form>

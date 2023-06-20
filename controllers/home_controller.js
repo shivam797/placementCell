@@ -22,3 +22,12 @@ module.exports.signIn = function(req, res){
 module.exports.studentDetails = function(req, res){
     return res.render('student');
 }
+
+module.exports.signOut = function(req, res){
+    req.logout(function(err){
+        if(err){
+        console.log(err);
+        }
+    });
+    return res.redirect('/user/sign-in');
+}
