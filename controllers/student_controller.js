@@ -51,7 +51,9 @@ module.exports.studentDetail = async function (req, res) {
 
 module.exports.createScores = async function (req, res) {
     let score = await Course.create(req.body);
-    console.log(score);
+    let student = await Student.findByIdAndUpdate(score.studentId, {courseId : score.id});
+    // console.log(student);
+    // console.log(score);
     return res.redirect('back');
 }
 
@@ -81,7 +83,11 @@ module.exports.createNewCompany = async function (req, res) {
             placementStatus: req.body.placementStatus,
             studentId: req.body.studentId
         });
+        let student = await Student.findById(company.studentId);
+        student.companyId.push(company.id);
+        student.save();
         console.log('company list', company);
+        console.log('student detail after push', student);
         let text = `/student/student-detail/${req.body.studentId}`;
         // console.log('text:', text);
         return res.redirect(text);
@@ -93,7 +99,7 @@ module.exports.createNewCompany = async function (req, res) {
 module.exports.destroyCompany = async function (req, res) {
     console.log(req.params.id);
     let company = await Company.findByIdAndDelete(req.params.id);
-    console.log('delete :', company);
+    // console.log('delete :', company);
     return res.redirect('back')
 }
 
@@ -106,7 +112,7 @@ module.exports.companyUpdate = async function (req, res) {
 
         // company.updateOne({placementStatus : req.body.placementStatus});
         // await company.save();
-        console.log('company after update', company);
+        // console.log('company after update', company);
 
         return res.redirect('back');
     } catch (error) {
@@ -122,7 +128,7 @@ module.exports.companyUpdate = async function (req, res) {
 
     // company.updateOne({placementStatus : req.body.placementStatus});
     // await company.save();
-    console.log('company after update', company);
+    // console.log('company after update', company);
 
     return res.redirect('back');
 }
@@ -132,25 +138,52 @@ const { Parser } = require('json2csv');
 module.exports.csv = async function (req, res) {
 
     try {
-        const company = await Company.find({}).populate('studentId').exec();
-        // console.log(company);
-        const fields = ['companyName', 'interviewDate', 'placementStatus', 'studentId.name'
-            , 'studentId.batch', 'studentId.email'];
+        const company = await Company.find({}).populate('studentId');
+        // .populate('studentId.courseId');
+        // console.log('company', company);
+        let array = []
+        const fields =['studentId.id','studentId.name', 'studentId.college','studentId.batch',
+                        'studentId.courseId.dsa',
+                        'studentId.courseId.webdesign',
+                        'studentId.courseId.react', 'companyName', 'interviewDate',
+                    'placementStatus'];
         const json2csvParser = new Parser({ fields, excelStrings: true });
-        const csvFormat = json2csvParser.parse(company);
-        fs.writeFile('inform.csv', csvFormat, function (err) {
-            if (err) {
-                console.log('err in csv download', err)
-            }
-            console.log('file saved');
-        })
-        res.attachment('placement.csv');
-        res.status(200).send(csvFormat);
+        let csvFormat = '';
+        for(comp of company){
+            let temp = await comp.populate('studentId.courseId');
+            // console.log(temp);
+            csvFormat+=json2csvParser.parse(temp);
+        }
+        
+        // //-	Student id, student name, student college, student status, DSA Final Score, 
+        // //WebD Final Score, React Final Score, interview date, interview company, 
+        // //interview student result
+        // for(var stu of student){
+        //     let temp = await stu.populate(['companyId','courseId']);
+        //     // console.log(temp);
+        //     csvFormat+= json2csvParser.parse(temp);
+        //     console.log(csvFormat);
+        // }
+         res.attachment('placement.csv');
+        res.status(200).send(csvFormat);               
+        
+
+        // console.log('company data',company);
+        // const fields = ['companyName', 'interviewDate', 'placementStatus', 'studentId.name'
+        //     , 'studentId.batch', 'studentId.email'];
+        // const json2csvParser = new Parser({ fields, excelStrings: true });
+        // const csvFormat = json2csvParser.parse(company);
+        // fs.writeFile('inform.csv', csvFormat, function (err) {
+        //     if (err) {
+        //         console.log('err in csv download', err)
+        //     }
+        //     console.log('file saved');
+        // })
+        // res.attachment('placement.csv');
+        // res.status(200).send(csvFormat);
         // return res.redirect('back');
     } catch (error) {
         console.log('error in csv download', error);
     }
-
-
 
 }

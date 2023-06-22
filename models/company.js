@@ -16,11 +16,11 @@ const company = new mongoose.Schema({
     },
     studentId :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'student_detail'
+        ref : 'student_details'
     }
 }, {
     timestamps: true
 });
 
-const companys = mongoose.model('companyInterview', company);
+const companys = mongoose.model('companyInterviews', company);
 module.exports = companys;
