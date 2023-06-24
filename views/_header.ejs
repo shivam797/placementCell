@@ -1,0 +1,23 @@
+<header>
+    <div class="flexrow">
+        <a href="/">home</a>
+    </div>
+    <div class="flexrow">
+        <h1>Placement Cell Team</h1>
+    </div>
+    <div class="flexrow">
+        
+        <% if(locals.user){%>
+            <h3>
+                <%=locals.user.name%>
+            </h3>
+            <a href="/user/sign-out">signOut</a>
+            <%}else{%>
+                <a href="/user/sign-in">signIn</a>
+                <a href="/user/sign-up">signUp</a>
+            <%}%>
+        
+        
+
+    </div>
+</header>

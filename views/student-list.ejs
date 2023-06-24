@@ -1,0 +1,28 @@
+<h1> This page shows student list
+</h1>
+
+
+
+<br>
+<p>Download Student List</p>
+<button><a href="/student/csv">Download</a></button>
+<br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Batch</th>
+        <th>Email</th>
+        <th>contact</th>
+        <th>college</th>
+    </tr>
+    <% for(stud of students) {%>
+        <tr>
+            <td><a href ="/student/student-detail/<%=stud.id%>"><%=stud.name%></a></td>
+            <td><%=stud.batch%></td>
+            <td><%=stud.email%></td>
+            <td><%=stud.contact%></td>
+            <td><%=stud.college%></td>
+        </tr>
+    <%}%>
+   
+</table>

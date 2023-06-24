@@ -1,0 +1,12 @@
+<form action="/student/create-student-score" method="POST">
+    <input type="hidden" value="<%=stud.id%>" name="studentId">
+    <label for="dsa">DSA :</label>
+    <input type="number" name="dsa" min="0" max="100" id="" required>
+    <br>
+    <label for="webdesign">WebDesign :</label>
+    <input type="number" name="webdesign" min="0" max="100" id="" required>
+    <br>
+    <label for="react">React :</label>
+    <input type="number" name="react" min="0" max="100" id="" required> <br>
+    <input type="submit" value="submit">
+</form>

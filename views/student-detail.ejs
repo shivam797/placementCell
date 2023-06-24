@@ -1,0 +1,64 @@
+<h1>This page gives student details</h1>
+<br>
+<hr>
+<h1>
+    <%=stud.name%>
+    <button><a href="/student/csv">Download student Details</a></button>
+</h1>
+<div class="data">
+    <div class="company-list">
+        <div><a href="/student/student-company/<%=stud.id%>">fill new company details</a></div>
+        <table>
+            <tr>
+                <th>CompanyName</th>
+                <th>interview data</th>
+                <th>status</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            <% for( let i=0; i<company.length;i++){%>
+                <tr>
+                    <form action="/student/student-company-update" method="POST">
+                        <th><input type="text" name="companyName" value="<%= company[i].companyName%>" disabled></th>
+                        <th><input type="datetime" name="interviewDate"
+                                value="<%= company[i].interviewDate%>" disabled>
+                        </th>
+                        <th>
+                            <input list="batch" name="placementStatus" value="<%= company[i].placementStatus%>">
+                            <datalist id="batch">
+                                <option value="on Hold"></option>
+                                <option value="selected"></option>
+                                <option value="not selected"></option>
+                                <option value="pending"></option>
+                                <option value="not attempted"></option>
+                            </datalist>
+                        </th>
+                        <input type="hidden" name="id" value="<%=company[i].id%>">
+                        <th>
+                            <input type="submit" value="submit" name="" id="">
+                        </th>                        
+                    </form>
+                    <th>
+                        <button><a href="/student/destroy-student/<%=company[i].id%>">delete</a></button>
+                    </th>
+                </tr>
+                <%}%>
+        </table>
+
+
+    </div>
+    <div class="course">
+        <% if(course){%>
+            <label for="dsa">DSA :</label>
+            <input type="number" max="100" min="0" value="<%=course.dsa%>" disabled>
+            <br>
+            <label for="webdesign">WebDesign :</label>
+            <input type="number" name="webdesign" value="<%=course.webdesign%>" id="" disabled>
+            <br>
+            <label for="react">React :</label>
+            <input type="number" name="react" value="<%= course.webdesign%>" id="" disabled>
+            <%}else{%>
+                <%- include('student-score'); -%>
+                    <%}%>
+    </div>
+</div>
