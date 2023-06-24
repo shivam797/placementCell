@@ -39,7 +39,7 @@ app.use(session({
         maxAge : 1000*60*100
     },
     store :  MongoStore.create({
-        mongoUrl :  'mongodb://0.0.0.0/placement_db',
+        mongoUrl :  'mongodb+srv://shivam797:AzKf6UjCSrbqDjO0@cluster0.iyqge0l.mongodb.net/',
         autoRemove : 'disabled'       
     })
 }));
