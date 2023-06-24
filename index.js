@@ -1,6 +1,6 @@
 const express = require('express');
-
-
+require('dotenv').config();
+const mongoose = require('mongoose');
 const db = require('./config/mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
@@ -10,13 +10,14 @@ const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 
 const json2csv = require('json-2-csv');
-const port = 8000;
+const port = process.env.PORT || 8000;
 const app = express();
 app.use(cookieParser());
 // app.get('/', function(req, res){
 //     return res.send('<h1>cool! it is running</h1>');
 // })
 //************************************************************* *
+mongoose.set('strictQuery', false);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
