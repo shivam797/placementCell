@@ -151,13 +151,13 @@ module.exports.csv = async function (req, res) {
         
         // .populate('studentId.courseId');
         // console.log('company', company);
-        const dsaValue = company[1].studentId.courseId.dsa;
-        const webdesign = company[2].studentId.courseId.webdesign; 
+        // const dsaValue = company[1].studentId.courseId.dsa;
+        // const webdesign = company[2].studentId.courseId.webdesign; 
         // console.log('dsaValue :', dsaValue);
         // console.log('webdesign', webdesign);
         
         
-        const fields = ['companyName', 'interviewDate', 'placementStatus',
+        const fields = ['name','email','college','companyName', 'interviewDate', 'placementStatus',
                         'studentId.name', 'studentId.courseId.dsa' ,
                     'studentId.courseId.webdesign'];
         const fieldNames = ['name','email','college','CompanyName',
