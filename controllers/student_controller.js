@@ -138,22 +138,38 @@ const { Parser } = require('json2csv');
 module.exports.csv = async function (req, res) {
 
     try {
-        const company = await Company.find({}).populate('studentId');
+        const company = await Company.find({}).populate([{
+            path : 'studentId',
+            select : 'name courseId batch college email',
+            populate : {
+                path : 'courseId',
+                select : 'dsa webdesign'
+
+            }
+        }]);
+        
+        
         // .populate('studentId.courseId');
         // console.log('company', company);
-        let array = []
-        const fields =['studentId.id','studentId.name', 'studentId.college','studentId.batch',
-                        'studentId.courseId.dsa',
-                        'studentId.courseId.webdesign',
-                        'studentId.courseId.react', 'companyName', 'interviewDate',
-                    'placementStatus'];
-        const json2csvParser = new Parser({ fields, excelStrings: true });
+        const dsaValue = company[1].studentId.courseId.dsa;
+        const webdesign = company[2].studentId.courseId.webdesign; 
+        // console.log('dsaValue :', dsaValue);
+        // console.log('webdesign', webdesign);
+        
+        
+        const fields = ['companyName', 'interviewDate', 'placementStatus',
+                        'studentId.name', 'studentId.courseId.dsa' ,
+                    'studentId.courseId.webdesign'];
+        const fieldNames = ['name','email','college','CompanyName',
+                         'InterviewDate', 'PlacementStatus','Name','DSA','Webdesign'];
+        const json2csvParser = new Parser({ fields: fields, fieldNames: fieldNames, excelStrings: true });
+        // const json2csvParser = new Parser({company});
         let csvFormat = '';
-        for(comp of company){
-            let temp = await comp.populate('studentId.courseId');
-            // console.log(temp);
-            csvFormat+=json2csvParser.parse(temp);
-        }
+        // for(comp of company){
+        //     let temp = await comp.populate('studentId.courseId');
+        //     // console.log(temp);
+            csvFormat=json2csvParser.parse(company);
+        // }
         
         // //-	Student id, student name, student college, student status, DSA Final Score, 
         // //WebD Final Score, React Final Score, interview date, interview company, 
